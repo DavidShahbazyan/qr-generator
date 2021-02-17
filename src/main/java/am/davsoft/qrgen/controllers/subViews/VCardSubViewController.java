@@ -1,10 +1,10 @@
 package am.davsoft.qrgen.controllers.subViews;
 
-import am.davsoft.barcodegenerator.api.BarCodeData;
-import am.davsoft.barcodegenerator.helper.PhoneNumberType;
-import am.davsoft.barcodegenerator.impl.BarCodeDataVCard;
-import am.davsoft.barcodegenerator.model.ContactName;
-import am.davsoft.barcodegenerator.model.PhoneNumber;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
+import am.davsoft.barcodegenerator.builder.ContactNameBuilder;
+import am.davsoft.barcodegenerator.builder.PhoneNumberBuilder;
+import am.davsoft.barcodegenerator.builder.barcodedata.VCardBarcodeDataBuilder;
+import am.davsoft.barcodegenerator.impl.PhoneNumberTypeEnum;
 import am.davsoft.qrgen.util.ValidatorFactory;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -45,19 +45,25 @@ public class VCardSubViewController extends SubViewController {
     }
 
     @Override
-    public BarCodeData getQRData() {
-        return BarCodeDataVCard.newInstance()
-                .withContactName(ContactName.newInstance()
+    public BarcodeData getQRData() {
+        return new VCardBarcodeDataBuilder()
+                .withContactName(new ContactNameBuilder()
                         .withFirstName(txtFieldFirstName.getText())
                         .withMiddleName(txtFieldMiddleName.getText())
                         .withLastName(txtFieldLastName.getText())
+                        .buildData()
                 )
                 .withCompany(txtFieldCompany.getText())
                 .withTitle(txtFieldTitle.getText())
-                .withPhoneNumber(PhoneNumber.newInstance().withType(PhoneNumberType.CELL).withNumber(txtFieldPhone.getText()))
+                .withPhoneNumber(new PhoneNumberBuilder()
+                        .withType(PhoneNumberTypeEnum.CELL)
+                        .withNumber(txtFieldPhone.getText())
+                        .buildData()
+                )
                 .withWebsite(txtFieldWebsite.getText())
                 .withEmail(txtFieldEmail.getText())
                 .withAddress(txtFieldAddress.getText())
-                .withNote(txtFieldNote.getText());
+                .withNote(txtFieldNote.getText())
+                .buildData();
     }
 }

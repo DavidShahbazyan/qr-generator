@@ -1,7 +1,7 @@
 package am.davsoft.qrgen.controllers.subViews;
 
-import am.davsoft.barcodegenerator.api.BarCodeData;
-import am.davsoft.barcodegenerator.impl.BarCodeDataEvent;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
+import am.davsoft.barcodegenerator.builder.barcodedata.EventBarcodeDataBuilder;
 import am.davsoft.qrgen.util.ValidatorFactory;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
@@ -58,19 +58,19 @@ public class EventSubViewController extends SubViewController {
     }
 
     @Override
-    public BarCodeData getQRData() {
-        BarCodeDataEvent qrDataEvent = BarCodeDataEvent.newInstance()
+    public BarcodeData getQRData() {
+        EventBarcodeDataBuilder builder = new EventBarcodeDataBuilder()
                 .withTitle(txtFieldTitle.getText())
                 .withLocation(txtFieldLocation.getText())
                 .withAllDayEvent(checkBoxAllDayEvent.isSelected())
                 .withDescription(txtAreaDescription.getText());
         if (checkBoxAllDayEvent.isSelected()) {
-            qrDataEvent.withStartDate(datePickerStartDate.getValue().atTime(LocalTime.MIN))
+            builder.withStartDate(datePickerStartDate.getValue().atTime(LocalTime.MIN))
                     .withEndDate(datePickerEndDate.getValue().atTime(LocalTime.MAX));
         } else {
-            qrDataEvent.withStartDate(datePickerStartDate.getValue().atTime(timePickerStartDate.getValue()))
+            builder.withStartDate(datePickerStartDate.getValue().atTime(timePickerStartDate.getValue()))
                     .withEndDate(datePickerEndDate.getValue().atTime(timePickerEndDate.getValue()));
         }
-        return qrDataEvent;
+        return builder.buildData();
     }
 }

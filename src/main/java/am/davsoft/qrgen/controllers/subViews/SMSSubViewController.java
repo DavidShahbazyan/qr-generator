@@ -1,7 +1,7 @@
 package am.davsoft.qrgen.controllers.subViews;
 
-import am.davsoft.barcodegenerator.api.BarCodeData;
-import am.davsoft.barcodegenerator.impl.BarCodeDataSMS;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
+import am.davsoft.barcodegenerator.builder.barcodedata.SMSBarcodeDataBuilder;
 import am.davsoft.qrgen.util.ValidatorFactory;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -31,7 +31,10 @@ public class SMSSubViewController extends SubViewController {
     }
 
     @Override
-    public BarCodeData getQRData() {
-        return BarCodeDataSMS.newInstance().withPhone(txtFieldPhoneNumber.getText()).withMessage(txtAreaSMSText.getText());
+    public BarcodeData getQRData() {
+        return new SMSBarcodeDataBuilder()
+                .withPhone(txtFieldPhoneNumber.getText())
+                .withMessage(txtAreaSMSText.getText())
+                .buildData();
     }
 }

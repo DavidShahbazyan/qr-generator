@@ -34,8 +34,8 @@
         </dependency>
         <dependency>
             <groupId>am.davsoft</groupId>
-            <artifactId>barcodegenerator</artifactId>
-            <version>1.4</version>
+            <artifactId>barcode-generator</artifactId>
+            <version>11.0.1</version>
         </dependency>
 
         <dependency>

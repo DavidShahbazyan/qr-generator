@@ -1,7 +1,7 @@
 package am.davsoft.qrgen.controllers;
 
-import am.davsoft.barcodegenerator.BarCodeGenerator;
-import am.davsoft.barcodegenerator.api.BarCodeData;
+import am.davsoft.barcodegenerator.BarcodeGenerator;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
 import am.davsoft.qrgen.controllers.subViews.SubViewController;
 import am.davsoft.qrgen.helpers.SubView;
 import am.davsoft.qrgen.util.Dialogs;
@@ -58,7 +58,7 @@ public class MainViewController implements Initializable {
     private static final List<FileChooser.ExtensionFilter> EXTENSION_FILTERS = Arrays.asList(PNG_EXTENSION_FILTER, SVG_EXTENSION_FILTER);
 
     private final FileChooser fileChooser = new FileChooser();
-    private final BarCodeGenerator qrGenerator = new BarCodeGenerator(BarcodeFormat.QR_CODE);
+    private final BarcodeGenerator qrGenerator = new BarcodeGenerator(BarcodeFormat.QR_CODE);
     private static int qrCodeSideSize = 250;
 
     @FXML
@@ -130,7 +130,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public BarCodeGenerator getQrGenerator() {
+    public BarcodeGenerator getQrGenerator() {
         return qrGenerator;
     }
 
@@ -207,7 +207,7 @@ public class MainViewController implements Initializable {
     protected void btnGenerateAction(ActionEvent event) throws Exception {
         if (currentSubViewController != null && currentSubViewController.validateForm()) {
             StackPane ownerStackPane = (StackPane) ((Node) event.getSource()).getScene().getRoot();
-            BarCodeData qrData = currentSubViewController.getQRData();
+            BarcodeData qrData = currentSubViewController.getQRData();
             if (qrData != null) {
 
                 JFXDialog dialog = Dialogs.createPopup(ownerStackPane, "");

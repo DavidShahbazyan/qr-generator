@@ -1,7 +1,7 @@
 package am.davsoft.qrgen.controllers.subViews;
 
-import am.davsoft.barcodegenerator.api.BarCodeData;
-import am.davsoft.barcodegenerator.impl.BarCodeDataURL;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
+import am.davsoft.barcodegenerator.builder.barcodedata.URLBarcodeDataBuilder;
 import am.davsoft.qrgen.util.ValidatorFactory;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -27,7 +27,9 @@ public class URLSubViewController extends SubViewController {
     }
 
     @Override
-    public BarCodeData getQRData() {
-        return BarCodeDataURL.newInstance().withUrl(txtFieldURL.getText());
+    public BarcodeData getQRData() {
+        return new URLBarcodeDataBuilder()
+                .withUrl(txtFieldURL.getText())
+                .buildData();
     }
 }

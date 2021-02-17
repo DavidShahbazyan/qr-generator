@@ -1,7 +1,7 @@
 package am.davsoft.qrgen.controllers.subViews;
 
-import am.davsoft.barcodegenerator.api.BarCodeData;
-import am.davsoft.barcodegenerator.impl.BarCodeDataMeCard;
+import am.davsoft.barcodegenerator.api.barcodedata.BarcodeData;
+import am.davsoft.barcodegenerator.builder.barcodedata.MeCardBarcodeDataBuilder;
 import am.davsoft.qrgen.util.ValidatorFactory;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -34,14 +34,15 @@ public class MeCardSubViewController extends SubViewController {
     }
 
     @Override
-    public BarCodeData getQRData() {
-        return BarCodeDataMeCard.newInstance()
+    public BarcodeData getQRData() {
+        return new MeCardBarcodeDataBuilder()
                 .withName(txtFieldName.getText())
                 .withCompany(txtFieldCompany.getText())
                 .withPhone(txtFieldPhone.getText())
                 .withWebsite(txtFieldWebsite.getText())
                 .withEmail(txtFieldEmail.getText())
                 .withAddress(txtFieldAddress.getText())
-                .withNote(txtFieldNote.getText());
+                .withNote(txtFieldNote.getText())
+                .buildData();
     }
 }
