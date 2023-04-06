@@ -54,14 +54,14 @@ public final class Dialogs {
         okButton.setCursor(Cursor.HAND);
 
         JFXButton yesButton = new JFXButton("Yes");
-        okButton.setOnAction(event -> dialog.close());
-        okButton.setFocusTraversable(false);
-        okButton.setCursor(Cursor.HAND);
+        yesButton.setOnAction(event -> dialog.close());
+        yesButton.setFocusTraversable(false);
+        yesButton.setCursor(Cursor.HAND);
 
         JFXButton noButton = new JFXButton("No");
-        okButton.setOnAction(event -> dialog.close());
-        okButton.setFocusTraversable(false);
-        okButton.setCursor(Cursor.HAND);
+        noButton.setOnAction(event -> dialog.close());
+        noButton.setFocusTraversable(false);
+        noButton.setCursor(Cursor.HAND);
 
         JFXDialogLayout dialogLayout = (JFXDialogLayout) dialog.getContent();
         switch (popupType) {
