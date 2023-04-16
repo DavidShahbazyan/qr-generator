@@ -1,0 +1,25 @@
+name: General Build Test
+
+on:
+  [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        version: [ 11, 17 ]
+        os: [ ubuntu-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up JDK ${{ matrix.version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.version }}
+          java-package: jdk+fx
+          server-id: maven
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
